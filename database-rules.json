@@ -1,0 +1,45 @@
+{
+  "rules": {
+    "users": {
+      ".read": "auth.uid === 'fb-functions'",
+      "$userID": {
+        ".read": "$userID === auth.uid",
+      	".write": "$userID === auth.uid"
+      }
+    },
+    "log": {
+      ".read": "auth.uid != null",
+      "$logID": {
+        ".read": "auth.uid != null",
+      	".write": "auth.uid === 'fb-functions'",
+        ".validate": "newData.hasChildren(['time', 'message'])",
+        ".indexOn": ["time"],
+        "time": {
+          ".validate": "newData.isNumber()"
+        },
+        "message": {
+          ".validate": "newData.isString()"
+        }
+      }
+    },
+  	"status": {
+      ".read": "auth.uid != null",
+      ".write": "auth.uid === 'worker-rpi'",
+      ".validate": "newData.isString()"
+    },
+    "footage": {
+      ".read": "auth.uid != null",
+    	".write": "auth.uid === 'fb-functions'",
+    	"$ID": {
+      	".validate": "newData.hasChildren(['time', 'path'])",
+        ".indexOn": "path",
+      	"time": {
+        	".validate": "newData.isNumber()"
+      	},
+      	"path": {
+        	".validate": "newData.isString()"
+      	}
+    	}
+		}
+  }
+}

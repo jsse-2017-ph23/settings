@@ -31,14 +31,17 @@
       ".read": "auth.uid != null",
     	".write": "auth.uid === 'fb-functions'",
     	"$ID": {
-      	".validate": "newData.hasChildren(['time', 'path'])",
+      	".validate": "newData.hasChildren(['time', 'path', 'url'])",
         ".indexOn": "path",
       	"time": {
         	".validate": "newData.isNumber()"
       	},
       	"path": {
         	".validate": "newData.isString()"
-      	}
+      	},
+        "url": {
+          ".validate": "newData.isString()"
+        }
     	}
 		}
   }

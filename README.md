@@ -15,3 +15,10 @@ firebase deploy --only database
 ```
 
 __WARNING__: The rules are not guaranteed to be the latest. I may forget to update rules in this repo.
+
+## Google cloud storage CORS settings
+CORS need to be set up before web client can receive images from cloud storage.
+
+```shell
+gsutil cors set cors-json-file.json gs://jsse-2017.appspot.com
+```

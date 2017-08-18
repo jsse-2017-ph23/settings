@@ -2,16 +2,16 @@
   "rules": {
     "users": {
       ".read": "auth.uid === 'fb-functions'",
-      "": {
-        ".read": " === auth.uid",
-      	".write": " === auth.uid"
+      "$userID": {
+        ".read": "$userID === auth.uid",
+        ".write": "$userID === auth.uid"
       }
     },
     "log": {
       ".read": "auth.uid != null",
-      "": {
+      "$logID": {
         ".read": "auth.uid != null",
-      	".write": "auth.uid === 'fb-functions'",
+        ".write": "auth.uid === 'fb-functions'",
         ".validate": "newData.hasChildren(['time', 'message'])",
         ".indexOn": ["time"],
         "time": {
@@ -22,30 +22,30 @@
         }
       }
     },
-  	"status": {
+    "status": {
       ".read": "auth.uid != null",
       ".write": "auth.uid === 'worker-rpi'",
       ".validate": "newData.isString()"
     },
     "footage": {
       ".read": "auth.uid != null",
-    	".write": "auth.uid === 'fb-functions'",
+      ".write": "auth.uid === 'fb-functions'",
       ".indexOn": "path",
-    	"": {
-      	".validate": "newData.hasChildren(['time', 'path'])",
+      "$ID": {
+        ".validate": "newData.hasChildren(['time', 'path'])",
         ".indexOn": "path",
-      	"time": {
-        	".validate": "newData.isNumber()"
-      	},
-      	"path": {
-        	".validate": "newData.isString()"
-      	}
-    	}
-		},
-    "mailCount": {
-       ".read": "auth.uid != null",
-       ".write": "auth.uid != null",
-       ".validate": "newData.isNumber()"
+        "time": {
+          ".validate": "newData.isNumber()"
+        },
+        "path": {
+          ".validate": "newData.isString()"
+        }
+      }
+    },
+    "haveMail": {
+      ".read": "auth.uid != null",
+      ".write": "auth.uid === 'worker-rpi'",
+      ".validate": "newData.isBoolean()"
     }
   }
 }
